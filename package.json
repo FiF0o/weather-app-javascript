@@ -2,8 +2,22 @@
   "name": "weather-app-javascript",
   "version": "1.0.0",
   "description": "weather app using vanilla javascript",
+  "config": {
+    "port": 3010
+  },
   "main": "index.js",
   "scripts": {
+    "start": "npm run build && npm run server:create",
+    "open:website": "./node_modules/.bin/opn http://localhost:$(npm run env | grep \"^npm_package_config_port=\" | cut -d\"=\" -f 2)",
+    "server:create": "PORT=$npm_package_config_port ./node_modules/.bin/nodemon ./bin/www",
+    "prebuild": "./node_modules/.bin/rimraf public && mkdir public",
+    "build": "./node_modules/.bin/npm-run-all --parallel build:*",
+    "build:js": "./node_modules/.bin/browserify ./src/index.js > ./public/bundle.js -d",
+    "build:css": "./node_modules/.bin/node-sass --source-map true src/scss/main.scss public/style.css",
+    "watch": "npm-run-all --parallel watch:*",
+    "watch:js": "./node_modules/.bin/watchify ./src/index.js -o ./public/bundle.js",
+    "watch:css": "npm run build:css -- -w",
+    "dev": "./node_modules/.bin/npm-run-all --parallel server:create watch open:website",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,5 +35,21 @@
   "bugs": {
     "url": "https://github.com/FiF0o/weather-app-javascript/issues"
   },
-  "homepage": "https://github.com/FiF0o/weather-app-javascript#readme"
+  "homepage": "https://github.com/FiF0o/weather-app-javascript#readme",
+  "dependencies": {
+    "body-parser": "1.16.1",
+    "browserify": "14.1.0",
+    "cookie-parser": "1.4.3",
+    "debug": "2.6.1",
+    "express": "4.14.1",
+    "http": "0.0.0",
+    "morgan": "1.8.1",
+    "node-sass": "4.5.0",
+    "opn": "4.0.2",
+    "opn-cli": "3.1.0",
+    "path": "0.12.7",
+    "pug-cli": "1.0.0-alpha6",
+    "rimraf": "2.6.0",
+    "watchify": "3.9.0"
+  }
 }
