@@ -41,9 +41,11 @@
     "browserify": "14.1.0",
     "cookie-parser": "1.4.3",
     "debug": "2.6.1",
+    "dotenv": "4.0.0",
     "express": "4.14.1",
     "http": "0.0.0",
     "morgan": "1.8.1",
+    "node-fetch": "1.6.3",
     "node-sass": "4.5.0",
     "opn": "4.0.2",
     "opn-cli": "3.1.0",
@@ -51,5 +53,8 @@
     "pug-cli": "1.0.0-alpha6",
     "rimraf": "2.6.0",
     "watchify": "3.9.0"
+  },
+  "devDependencies": {
+    "prettyjson": "1.2.1"
   }
 }

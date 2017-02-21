@@ -3,7 +3,6 @@ var app = require('../app');
 var debug = require('debug')('book-api:server');
 var http = require('http');
 
-
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 

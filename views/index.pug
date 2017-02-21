@@ -3,3 +3,8 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  p data #{data.foo}
+  form(action="/", method="get", id="weather_form")
+    // name required for req.query not to be empty - getting the query object from the form
+    input#weather(type="text", name="city")
+  button(type="submit", form="weather_form", value="submit") Submit
