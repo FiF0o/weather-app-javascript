@@ -36,8 +36,16 @@ app.get('/', function(req, res, next) {
         getWeatherToJson(url)
             // returns a resolved promise to be served to the template
             .then(function(response) {
-                console.log(response)
-                return res.render('index', {data: response})
+                var weatherCity = response.city
+                var weatherList = response.list
+
+                var data = {
+                    city: weatherCity.name,
+                    country: weatherCity.country,
+                    weatherList: weatherList
+                }
+
+                return res.render('index', {data: data})
             })
     } else {
         res.render('index', {data: 'data object', title: 'hello world'})
