@@ -10,7 +10,10 @@ var fetch = require('node-fetch');
 
 require('dotenv').config();
 var API_KEY = process.env.API_KEY;
+
 var getWeatherToJson = require('./utils/getWeather');
+var kelvToCelc = require ('./utils/kelvToCelc')
+var dateUtils = require('./utils/dateUtils')
 
 
 var app = express();
@@ -30,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function(req, res, next) {
     // gets the city field from the form field
     var _city = req.query.city
+    // can pass additionnal query string arguments to return data (temp, etc..)
     var url = 'http://api.openweathermap.org/data/2.5/forecast\?q\='+_city+'\&APPID\='+API_KEY;
 
     if(_city) {
@@ -39,10 +43,22 @@ app.get('/', function(req, res, next) {
                 var weatherCity = response.city
                 var weatherList = response.list
 
+               // map to create new object containing subset of data to be served to the template
+                var list = weatherList.map(function(item) {
+                    return {
+                        date: dateUtils.getDayFromUnixTimeStamp(item.dt),
+                        temp: Math.round(kelvToCelc(item.main.temp) * 10) / 10,
+                        weather: item.weather
+                    }
+                })
+
+                // new array to be served to the template
                 var data = {
+                    title: 'Ouezeur App',
                     city: weatherCity.name,
                     country: weatherCity.country,
-                    weatherList: weatherList
+                    // mutated response containing formatted day (day name) and temp (Celc)
+                    list: list
                 }
 
                 return res.render('index', {data: data})

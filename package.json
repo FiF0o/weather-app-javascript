@@ -5,7 +5,7 @@
   "config": {
     "port": 3010
   },
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "npm run build && npm run server:create",
     "open:website": "./node_modules/.bin/opn http://localhost:$(npm run env | grep \"^npm_package_config_port=\" | cut -d\"=\" -f 2)",
@@ -18,7 +18,8 @@
     "watch:js": "./node_modules/.bin/watchify ./src/index.js -o ./public/bundle.js",
     "watch:css": "npm run build:css -- -w",
     "dev": "./node_modules/.bin/npm-run-all --parallel server:create watch open:website",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "./node_modules/.bin/now -e API_KEY=@api_key"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   },
   "keywords": [
     "weather",
+    "Ouezeur",
     "app",
     "javascript",
     "api"
@@ -47,6 +49,7 @@
     "morgan": "1.8.1",
     "node-fetch": "1.6.3",
     "node-sass": "4.5.0",
+    "npm-run-all": "4.0.1",
     "opn": "4.0.2",
     "opn-cli": "3.1.0",
     "path": "0.12.7",
@@ -55,6 +58,7 @@
     "watchify": "3.9.0"
   },
   "devDependencies": {
+    "now": "4.5.8",
     "prettyjson": "1.2.1"
   }
 }

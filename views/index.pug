@@ -1,23 +1,31 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{data.city}
+
+  if data.title
+    h1= data.title
+  else
+    h1= title
+
   form(action="/", method="get", id="weather_form")
     // name required for req.query not to be empty - getting the query object from the form
     input#weather(type="text", name="city")
   button(type="submit", form="weather_form", value="submit") Submit
 
-  p= data.country
+  h2= data.city
 
-  each city in data.weatherList
-    li
-      span= city.dt
-      span= city.main.temp_min
-      span= city.main.temp_max
-      span= city.main.humidity
-      // array within array - access weather array
-      each weather in city.weather
-        p= weather.main
-        p= weather.description
-        p= weather.icon
+  if data.list
+    p= data.country
+
+    each weather in data.list
+      li
+        // returned from the map
+        span= weather.date
+        span= weather.temp
+        // array within array - access weather array
+        each info in weather.weather
+          p= info.main
+          p= info.description
+          p= info.icon
+  else
+    h2 Else condition #{data} and its title #{title}
