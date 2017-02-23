@@ -2,30 +2,41 @@ extends layout
 
 block content
 
-  if data.title
-    h1= data.title
-  else
-    h1= title
+  header.weather_head
+    if data.title
+      h1= data.title
+    else
+      h1= title
 
-  form(action="/", method="get", id="weather_form")
-    // name required for req.query not to be empty - getting the query object from the form
-    input#weather(type="text", name="city")
-  button(type="submit", form="weather_form", value="submit") Submit
 
-  h2= data.city
+  section.weather_search
+    form(action="/", method="get", id="weather_form")
+      // name required for req.query not to be empty - getting the query object from the form
+      input#weather(type="text", name="city" placeholder="Search city for a weather forecast")
+    button(type="submit", form="weather_form", value="submit") Gimme the Ouezeur
 
-  if data.list
-    p= data.country
 
-    each weather in data.list
-      li
-        // returned from the map
-        span= weather.date
-        span= weather.temp
-        // array within array - access weather array
-        each info in weather.weather
-          p= info.main
-          p= info.description
-          p= info.icon
-  else
-    h2 Else condition #{data} and its title #{title}
+  section.weather_block
+    h2.weather_block.title= data.city
+    div.weather_block.details
+      if data.list
+        h3= data.country
+
+        each weather in data.list
+          li
+            // returned from the map
+            span= weather.date
+            span= weather.temp
+            // array within array - access weather array
+            each info in weather.weather
+              p
+                img(src="http://openweathermap.org/img/w/#{info.icon}.png" alt="weather-icon" height="36" width="36")
+              p= info.main
+              p= info.description
+      else
+        h2 Else condition #{data} and its title #{title}
+    div.weather_block.error
+
+
+  footer
+    p This is the footer

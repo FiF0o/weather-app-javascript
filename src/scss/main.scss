@@ -1,5 +1,97 @@
-@import "module";
+@import "_reset";
 
+/**
+  Globals
+ */
+// @font-face import from Google Fonts
+@import url('https://fonts.googleapis.com/css?family=Sansita');
+
+/**
+  Local imports
+ */
+
+
+/**
+  Overrides
+ */
 body {
+  box-sizing: border-box;
+  display: block;
+  margin: 0 auto;
+  padding: 0;
   background-color: aqua;
+  font-family: 'Sansita', sans-serif;
+  font-size: 1.1em;
+  text-align: center;
+}
+
+.weather_head {
+  width: 100%;
+  padding: 2em;
+  margin-top: 2em;
+}
+
+section {
+  &.weather_search {
+    width: 100%;
+    display: inline-block;
+    margin: 2em;
+    form {
+      padding: 10px;
+      margin-right: 1.3em;
+      display: inline-block;
+      input {
+
+      }
+    }
+    button {
+      padding: 1em 1.5em;
+      text-transform: uppercase;
+    }
+  }
+  &.weather_block {
+    .title {
+      margin-bottom: 1.3em;
+      padding: .5em;
+    }
+
+    .details {
+      margin-top: 1.3em;
+      padding: .3em;
+      > h3 {
+        margin-bottom: 1.5em;
+        padding: 1em .5em;
+      }
+    }
+  }
+}
+
+
+li {
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 0.8em 1.2em;
+  width: 20%;
+  min-width: 15%;
+  list-style: none;
+  text-align: center;
+
+  & span {
+    padding: 0 .8em;
+  }
+
+  & p {
+    margin: .3em .5em;
+    padding: .2em .2em;
+
+    &:first-child {
+      margin-top: 1.2em;
+      margin-bottom: 2.4em;
+    }
+  }
+}
+
+footer {
+  padding: 2em;
+  margin: 1em 0;
 }

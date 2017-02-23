@@ -33,8 +33,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function(req, res, next) {
     // gets the city field from the form field
     var _city = req.query.city
-    // can pass additionnal query string arguments to return data (temp, etc..)
-    var url = 'http://api.openweathermap.org/data/2.5/forecast\?q\='+_city+'\&APPID\='+API_KEY;
+    // can pass additionnal query string arguments to return data (temp, etc..) for the 5 next days
+    var url = 'http://api.openweathermap.org/data/2.5/forecast\?q\='+_city+'\&APPID\='+API_KEY+'\&cnt=5';
 
     if(_city) {
         getWeatherToJson(url)
@@ -48,7 +48,7 @@ app.get('/', function(req, res, next) {
                     return {
                         date: dateUtils.getDayFromUnixTimeStamp(item.dt),
                         temp: Math.round(kelvToCelc(item.main.temp) * 10) / 10,
-                        weather: item.weather
+                        weather: item.weather,
                     }
                 })
 
