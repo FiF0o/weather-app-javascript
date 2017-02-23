@@ -34,7 +34,7 @@ block content
               // array within array - access weather array
               each info in weather.weather
                 p
-                  img(src="http://openweathermap.org/img/w/#{info.icon}.png" alt="weather-icon" height="36" width="36")
+                  img(src='http://openweathermap.org/img/w/'+info.icon+'.png' alt="weather-icon" height="36" width="36")
                 p= info.main
                 p= info.description
         else
