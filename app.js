@@ -42,9 +42,8 @@ app.get('/', function(req, res, next) {
             .then(function(response) {
                 var weatherCity = response.city
                 var weatherList = response.list
-
-               // map to create new object containing subset of data to be served to the template
-                var list = weatherList.map(function(item) {
+                // map to create new object containing subset of data to be served to the template
+                var list = weatherList.map(function (item) {
                     return {
                         date: dateUtils.getDayFromUnixTimeStamp(item.dt),
                         temp: Math.round(kelvToCelc(item.main.temp) * 10) / 10,
@@ -58,12 +57,24 @@ app.get('/', function(req, res, next) {
                     city: weatherCity.name,
                     country: weatherCity.country,
                     // mutated response containing formatted day (day name) and temp (Celc)
-                    list: list
+                    list: list,
                 }
 
                 return res.render('index', {data: data})
             })
+            /** Catching any error when exception error is thrown from getWeatherToJson - throw new Error() -
+             * passing it down to the client to resolve the fetch with the error from the server.
+            */
+            .catch(function(err) {
+                console.log('catching err: ' + err)
+                var data = {
+                    title: 'Something went wrong :(',
+                    err: err
+                }
+                return res.render('index', {data: data})
+            })
     } else {
+        // returns basic template with default data
         res.render('index', {data: 'data object', title: 'hello world'})
     }
 })

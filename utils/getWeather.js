@@ -13,9 +13,4 @@ module.exports = function getWeatherToJson(url) {
                 throw new Error('There was an error with your promise')
             }
         })
-        // catching any error and passing it down the chain
-        .catch(function(err) {
-            console.log('catching err: ' + err)
-            return 'There has been a problem with your fetch operation: ' + err.message
-        })
 }

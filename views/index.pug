@@ -15,27 +15,30 @@ block content
       input#weather(type="text", name="city" placeholder="Search city for a weather forecast")
     button(type="submit", form="weather_form", value="submit") Gimme the Ouezeur
 
+  if data.err
+    section.weather_block
+      .weather_block.error
+        p.weather_block.error.__message= data.err
+  else
+    section.weather_block
+      h2.weather_block.title= data.city
+      div.weather_block.details
+        if data.list
+          h3= data.country
 
-  section.weather_block
-    h2.weather_block.title= data.city
-    div.weather_block.details
-      if data.list
-        h3= data.country
-
-        each weather in data.list
-          li
-            // returned from the map
-            span= weather.date
-            span= weather.temp
-            // array within array - access weather array
-            each info in weather.weather
-              p
-                img(src="http://openweathermap.org/img/w/#{info.icon}.png" alt="weather-icon" height="36" width="36")
-              p= info.main
-              p= info.description
-      else
-        h2 Else condition #{data} and its title #{title}
-    div.weather_block.error
+          each weather in data.list
+            li
+              // returned from the map
+              span= weather.date
+              span= weather.temp
+              // array within array - access weather array
+              each info in weather.weather
+                p
+                  img(src="http://openweathermap.org/img/w/#{info.icon}.png" alt="weather-icon" height="36" width="36")
+                p= info.main
+                p= info.description
+        else
+          h2 Else condition #{data}
 
 
   footer
