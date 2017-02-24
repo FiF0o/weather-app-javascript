@@ -8,6 +8,8 @@
   "main": "app.js",
   "scripts": {
     "start": "npm run build && npm run server:create",
+    "now-start": "PORT=$npm_package_config_port node ./bin/www",
+    "now-build": "npm run build:css",
     "open:website": "./node_modules/.bin/opn http://localhost:$(npm run env | grep \"^npm_package_config_port=\" | cut -d\"=\" -f 2)",
     "server:create": "PORT=$npm_package_config_port ./node_modules/.bin/nodemon ./bin/www",
     "prebuild": "./node_modules/.bin/rimraf public && mkdir public",

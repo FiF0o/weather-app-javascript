@@ -25,7 +25,7 @@ Make sure you encrypt `<YOUR_API_KEY>`` before deploying:
 `now secret add api_key <YOUR_API_KEY>`
 
 ### deploying
-`now` will automatically run `install`, `build`, `start` when deploying which cam be overriden by `now-build`, `now-start` scripts.
+`now` will automatically run `install`, `build`, `start` when deploying which can be overriden by `now-build`, `now-start` scripts.
 
 ### custom domain name
 `now alias <YOUR_MOST_RECENT_URL>` `YOUR_ALIAS`
