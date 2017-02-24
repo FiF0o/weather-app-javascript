@@ -1,6 +1,6 @@
 # weather-app-javascript
 This is a weather app using  http://openweathermap.org/forecast5 API.
-App available at: [weather app]()
+App available at: [ouezeur app](https://ouezeur-app.now.sh)
 
 api response example when making a request with city qs: `curl http://api.openweathermap.org/data/2.5/forecast\?q\=london\&APPID\=<YOUR_TOKEN> | prettyjson`
 
