@@ -75,7 +75,7 @@ app.get('/', function(req, res, next) {
             })
     } else {
         // returns basic template with default data
-        res.render('index', {data: 'data object', title: 'hello world'})
+        res.render('index', {data: 'cities', box: 'box'})
     }
 })
 
