@@ -33,31 +33,33 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function(req, res, next) {
     // gets the city field from the form field
     var _city = req.query.city
-    // can pass additionnal query string arguments to return data (temp, etc..) for the 5 next days
-    var url = 'http://api.openweathermap.org/data/2.5/forecast\?q\='+_city+'\&APPID\='+API_KEY+'\&cnt=5';
+    // can pass additionnal query string arguments to return data (temp, etc..) for the 5 next days e.g. \&units=metric
+    var url = 'http://api.openweathermap.org/data/2.5/forecast/daily\?q\='+_city+'\&cnt=5\&APPID\='+API_KEY;
+    console.log(url)
 
     if(_city) {
         getWeatherToJson(url)
             // returns a resolved promise to be served to the template
             .then(function(response) {
-                var weatherCity = response.city
+                var weatherCity = response.name
                 var weatherList = response.list
                 // map to create new object containing subset of data to be served to the template
                 var list = weatherList.map(function (item) {
                     return {
                         date: dateUtils.getDayFromUnixTimeStamp(item.dt),
-                        temp: Math.round(kelvToCelc(item.main.temp) * 10) / 10,
-                        weather: item.weather,
+                        // temp: Math.round(kelvToCelc(item.temp) * 10) / 10,
+                        temp: Math.round(kelvToCelc(item.temp.day) * 10) / 10,
+                        weather: item.weather
                     }
                 })
 
                 // new array to be served to the template
                 var data = {
                     title: 'Ouezeur App',
-                    city: weatherCity.name,
-                    country: weatherCity.country,
+                    city: weatherCity,
+                    country: response.country,
                     // mutated response containing formatted day (day name) and temp (Celc)
-                    list: list,
+                    list: list
                 }
 
                 return res.render('index', {data: data})
