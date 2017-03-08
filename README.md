@@ -29,3 +29,9 @@ Make sure you encrypt `<YOUR_API_KEY>`` before deploying:
 
 ### custom domain name
 `now alias <YOUR_MOST_RECENT_URL>` `YOUR_ALIAS`
+
+## improvements
+- unit tests
+- clearfix
+- create a middleware to be injected in the route to make `app.js` more modular and easier to read
+- managing 404 error where API returns something anyway
